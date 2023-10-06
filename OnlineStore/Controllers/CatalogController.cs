@@ -2,7 +2,7 @@
 
 namespace OnlineStore.Controllers
 {
-    public class CatalogController1 : Controller
+    public class CatalogController : Controller
     {
         public IActionResult Index()
         {
