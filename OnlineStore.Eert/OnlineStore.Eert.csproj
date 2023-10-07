@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\OnlineStore.DAL\OnlineStore.DAL.csproj" />
-    <ProjectReference Include="..\OnlineStore.Domain\OnlineStore.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

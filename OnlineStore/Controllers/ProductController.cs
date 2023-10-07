@@ -1,23 +1,23 @@
-﻿
-
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore.DAL.Interfaces;
+using OnlineStore.Service.Interfaces;
 
 namespace OnlineStore.Controllers
 {
 	public class ProductController : Controller
 	{
-		private readonly IProductRepository _repository;
+		private readonly IProductService _productsService;
 
-		public ProductController(IProductRepository productRepository)
+		public ProductController(IProductService productService)
 		{
-			_repository = productRepository;
+			_productsService = productService;
 		}
+
 		[HttpGet]
 		public async Task<IActionResult> GetProducts()
 		{
-			var response = await _repository.Select();
-			return View(response);
+			var response = await _productsService.GetProduct();
+			return View();
 		}
 	}
 }

@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineStore.DAL\OnlineStore.DAL.csproj" />
+    <ProjectReference Include="..\OnlineStore.Domain\OnlineStore.Domain.csproj" />
+    <ProjectReference Include="..\OnlineStore.Service\OnlineStore.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.DAL;
+using OnlineStore.DAL.Interfaces;
+using OnlineStore.DAL.Repositories;
+using OnlineStore.Service.Interfaces;
+using OnlineStore.Service.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbConnection = builder.Configuration.GetConnectionString("dbConnection");
@@ -9,7 +13,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 	options.UseSqlServer(dbConnection));
 
+//мер днярсою й ондйкчвемхч
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, IProductService>();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
