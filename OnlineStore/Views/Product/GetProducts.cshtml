@@ -1,0 +1,16 @@
+﻿@using OnlineStore.Domain.Entity;
+@model List<Product>
+@{
+	ViewBag.Title = "title";
+	Layout = "_layout";
+}
+
+@foreach(var product in Model)
+{
+	<p>@product.Name</p>
+	<p>@product.Description</p>
+	<p>@product.Price</p>
+	<p>@product.TypeProduct</p>
+}
+
+
