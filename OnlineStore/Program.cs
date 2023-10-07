@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineStore.Models;
+using OnlineStore.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbConnection = builder.Configuration.GetConnectionString("dbConnection");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+	options.UseSqlServer(dbConnection));
 
 var app = builder.Build();
 
