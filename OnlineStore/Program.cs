@@ -13,9 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 	options.UseSqlServer(dbConnection));
 
-//мер днярсою й ондйкчвемхч
+	//мер днярсою й ондйкчвемхч
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, IProductService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

@@ -18,7 +18,7 @@ namespace OnlineStore.DAL.Repositories
 		{
 			_db = dBContext;
 		}
-		public async Task<bool> CreateAsync(Product entity)
+		public async Task<bool> Create(Product entity)
 		{
 			await _db.product.AddAsync(entity);
 			await _db.SaveChangesAsync();
@@ -46,6 +46,14 @@ namespace OnlineStore.DAL.Repositories
 		public async Task<List<Product>> Select()
 		{
 			return await _db.product.ToListAsync();
+		}
+
+		public async Task<Product> Update(Product entity)
+		{
+			_db.product.Update(entity);
+			await _db.SaveChangesAsync();
+
+			return entity;
 		}
 	}
 }

@@ -13,6 +13,7 @@ namespace OnlineStore.Domain.Response
 
 	public interface IBaseResponse<T>
 	{
+		StatusCode Status { get; set; }
 		T Data { get; set; }
 	}
 }
