@@ -6,16 +6,18 @@ namespace OnlineStore.Service.Interfaces
 {
 	public interface IProductService
 	{
-		Task<IBaseResponse<IEnumerable<Product>>> GetProducts();
-		
-		Task<IBaseResponse<Product>> GetProduct(int id);
-		
-		Task<IBaseResponse<Product>> GetProductByName(string name);
-		
-		Task<IBaseResponse<bool>> DeleteProduct(int id);
+		BaseResponse<Dictionary<int, string>> GetTypes();
 
-		Task<IBaseResponse<ProductViewModel>> CreateProduct(ProductViewModel productViewModel);
+		IBaseResponse<List<Product>> GetProducts();
 
-		Task<IBaseResponse<Product>> Edit(int id, ProductViewModel model);
+		Task<IBaseResponse<ProductViewModel>> GetProduct(long id);
+
+		Task<BaseResponse<Dictionary<int, string>>> GetProduct(string term);
+
+		Task<IBaseResponse<Product>> Create(ProductViewModel product, byte[] imageData);
+
+		Task<IBaseResponse<bool>> DeleteProduct(long id);
+
+		Task<IBaseResponse<Product>> Edit(long id, ProductViewModel model);
 	}
 }

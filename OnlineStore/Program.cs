@@ -4,6 +4,7 @@ using OnlineStore.DAL.Interfaces;
 using OnlineStore.DAL.Repositories;
 using OnlineStore.Service.Interfaces;
 using OnlineStore.Service.Implementations;
+using OnlineStore.Domain.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbConnection = builder.Configuration.GetConnectionString("dbConnection");
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 	options.UseSqlServer(dbConnection));
 
 	//мер днярсою й ондйкчвемхч
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();

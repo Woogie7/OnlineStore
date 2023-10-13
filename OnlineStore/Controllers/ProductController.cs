@@ -17,9 +17,9 @@ namespace OnlineStore.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetProducts()
+		public IActionResult GetProducts()
 		{
-			var response = await _productsService.GetProducts();
+			var response = _productsService.GetProducts();
 			if (response.Status == Domain.Enum.StatusCode.OK)
 			{
 				return View(response.Data);
@@ -74,7 +74,12 @@ namespace OnlineStore.Controllers
 			{
 				if (productViewModel.Id == 0)
 				{
-					await _productsService.CreateProduct(productViewModel);
+					byte[] imageData;
+					using (var binaryReader = new BinaryReader(productViewModel.Avatar.OpenReadStream()))
+					{
+						imageData = binaryReader.ReadBytes((int)productViewModel.Avatar.Length);
+					}
+					await _productsService.Create(productViewModel, imageData);
 				}
 				else 
 				{

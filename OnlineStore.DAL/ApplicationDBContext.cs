@@ -12,11 +12,9 @@ namespace OnlineStore.DAL
 	{
 		public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) 
 		{
-			
+			Database.EnsureCreated();
 		}
 
 		public DbSet<Product> product { get; set; }
-
-
 	}
 }

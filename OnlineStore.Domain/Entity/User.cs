@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.Domain.Entity
 {
-	public class Product
+	public class User
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Description { get; set; }
-		public decimal Price { get; set; }
-		public TypeProduct TypeProduct { get; set; }
-		//public byte[]? Avatar { get; set; }
+		public string Password { get; set; }
+		public Role role { get; set; }
 	}
 }

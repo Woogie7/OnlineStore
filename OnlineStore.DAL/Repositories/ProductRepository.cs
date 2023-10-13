@@ -11,41 +11,28 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.DAL.Repositories
 {
-	public class ProductRepository : IProductRepository
+	public class ProductRepository : IBaseRepository<Product>
 	{
 		private readonly ApplicationDBContext _db;
 		public ProductRepository(ApplicationDBContext dBContext) 
 		{
 			_db = dBContext;
 		}
-		public async Task<bool> Create(Product entity)
+		public async Task Create(Product entity)
 		{
 			await _db.product.AddAsync(entity);
 			await _db.SaveChangesAsync();
-
-			return true;
 		}
 
-		public async Task<bool> Delete(Product entity)
+		public async Task Delete(Product entity)
 		{
 			_db.product.Remove(entity);
 			await _db.SaveChangesAsync();
-			return true;
 		}
 
-		public async Task<Product> Get(int id)
+		public IQueryable<Product> GetAll()
 		{
-			return await _db.product.FirstOrDefaultAsync(x => x.Id == id);
-		}
-
-		public async Task<Product> GetByNameAsync(string name)
-		{
-			return await _db.product.FirstOrDefaultAsync(x => x.Name == name);
-		}
-
-		public async Task<List<Product>> Select()
-		{
-			return await _db.product.ToListAsync();
+			return _db.product;
 		}
 
 		public async Task<Product> Update(Product entity)
@@ -55,5 +42,6 @@ namespace OnlineStore.DAL.Repositories
 
 			return entity;
 		}
+
 	}
 }
