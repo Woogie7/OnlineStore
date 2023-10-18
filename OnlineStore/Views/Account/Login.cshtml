@@ -1,4 +1,4 @@
-﻿@model OnlineStore.Models.LoginViewModel
+﻿@model OnlineStore.Domain.ViewModels.Accaount.LoginViewModel
 @{
 	ViewData["Title"] = "Login";
 }
@@ -11,17 +11,17 @@
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-			<form autocomplete="off" method="post" class="p-3 m-3">
+			<form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Account" asp-action="Login">
 				<div class="mb-3">
 					<h2 class="text-black">Авторизация</h2>
 					<span class="text-muted">Войдите в свой аккаунт</span>
 				</div>
 				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder="E-mail"})
-					<label for="Email">E-mail</label>
+					<input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
+					<label for="Name">Имя</label>
 				</div>
 				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Password, new {@class = "form-control",placeholder="Пароль", type="Password"})
+					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
 					<label for="Password">Пароль</label>
 				</div>
 				<div class="mb-3">
