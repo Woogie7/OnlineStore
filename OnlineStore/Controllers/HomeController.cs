@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineStore.Models;
 using System.Diagnostics;
 
 namespace OnlineStore.Controllers

@@ -52,3 +52,11 @@ html {
 .dishCard{
     height: 250px;
 }
+.text-feild {
+    color: #ff0000;
+}
+
+.product-image{
+    height: 500px;
+    width: auto;
+}

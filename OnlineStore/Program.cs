@@ -6,6 +6,7 @@ using OnlineStore.Service.Interfaces;
 using OnlineStore.Service.Implementations;
 using OnlineStore.Domain.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbConnection = builder.Configuration.GetConnectionString("dbConnection");
@@ -15,11 +16,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 	options.UseSqlServer(dbConnection));
 
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
-//    {
-//        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("Account/Login");
-//        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("Account/Login");
-//	});
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie();
 
 
 builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();

@@ -10,9 +10,17 @@ namespace OnlineStore.Domain.Enum
 {
 	public enum TypeProduct
 	{
-		[Display(Name = "Охота")]
-		Hunt = 0,
-		[Display(Name ="Рыбалка")]
-		Fishing = 1
+		[Display(Name = "Удилища")]
+		Rods = 0,
+		[Display(Name ="Котушки")]
+		Reels = 1,
+		[Display(Name = "Приманки для рыбалки")]
+		LuresForFishing = 2,
+		[Display(Name = "Амуниция")]
+		Ammunition = 3,
+		[Display(Name = "Аксессуары охотничьи")]
+		HuntingAccessories = 4,
+		[Display(Name = "Приманки для охоты")]
+		LuresForHunting = 5
 	}
 }

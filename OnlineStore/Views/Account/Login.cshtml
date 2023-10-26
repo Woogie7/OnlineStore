@@ -7,14 +7,16 @@
 	<div class="row shadow rounded">
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 			<div>
-				<img src="~/image/carousel/binoculars.png" class="w-100"/>
+				<img src="~/image/binoculars.png" class="w-100"/>
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 			<form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Account" asp-action="Login">
 				<div class="mb-3">
 					<h2 class="text-black">Авторизация</h2>
-					<span class="text-muted">Войдите в свой аккаунт</span>
+					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
+					<br/>
+					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
 				</div>
 				<div class="form-floating mb-3">
 					<input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
@@ -32,6 +34,7 @@
 						<a class="text-success fst-italic" asp-area="" asp-controller="Account" asp-action="Register">Зарегистрируйся</a>
 					</span>
 				</div>
+
 			</form>
 		</div>
 	</div>

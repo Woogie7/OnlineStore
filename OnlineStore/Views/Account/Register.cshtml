@@ -1,4 +1,4 @@
-﻿@model OnlineStore.Models.RegisterViewModel
+﻿@model OnlineStore.Domain.ViewModels.Accaount.RegisterViewModel
 @{
 	ViewData["Title"] = "Register";
 }
@@ -7,32 +7,28 @@
 	<div class="row shadow rounded">
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 			<div>
-				<img src="~/image/hunt-1761192_1280.jpg" class="w-100" />
+				<img src="~/image/weapon.png" class="w-100" />
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-			<form autocomplete="off" method="post" class="p-2 m-2">
+			<form autocomplete="off" method="post" class="p-2 m-2" asp-controller="Account" asp-action="Register">
 				<div class="mb-3">
 					<h2 class="text-black">Регистрация</h2>
-					<span>Создай свой аккаунт</span>
+					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
 				</div>
 				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Name, new {@class = "form-control", placeholder="Имя"})
+					<input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Имя" type="text">
 					<label for="Name">Имя</label>
 				</div>
 				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Address, new {@class = "form-control", placeholder="Адрес"})
-					<label for="Address">Адрес</label>
-				</div>
-				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder="E-mail"})
-					<label for="Email">E-mail</label>
-				</div>
-				<div class="form-floating mb-3">
-					@Html.TextBoxFor(m => m.Password, new {@class = "form-control",placeholder="Пароль", type="Password"})
+					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+
 					<label for="Password">Пароль</label>
 				</div>
-
+				<div class="form-floating mb-3">
+					<input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+					<label for="PasswordConfirm">Подтверждение пороля</label>
+				</div>
 				<div>
 					<button class="btn btn-sm btn-dark w-100 p-2 shadow rounded" type="submit">Зарегистрироваться</button>
 				</div>

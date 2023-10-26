@@ -34,10 +34,9 @@ namespace OnlineStore.Controllers
 				{
 					await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
 						new ClaimsPrincipal(response.Data));
-
 					return RedirectToAction("Index", "Home");
 				}
-				ModelState.AddModelError("", response.Description);
+				ModelState.AddModelError("Name", response.Description);
 			}
 			return View(model);
 		}
@@ -47,30 +46,29 @@ namespace OnlineStore.Controllers
 		{
 			return View();
 		}
-		//[HttpPost]
-		//public async Task<IActionResult> Login(LoginViewModel model)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		var response = await _accountService.Login(model);
-		//		if (response.Status == Domain.Enum.StatusCode.OK)
-		//		{
-		//			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-		//				new ClaimsPrincipal(response.Data));
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var response = await _accountService.Login(model);
+				if (response.Status == Domain.Enum.StatusCode.OK)
+				{
+					await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+						new ClaimsPrincipal(response.Data));
+					return RedirectToAction("Index", "Home");
+				}
+				ModelState.AddModelError("Name", response.Description);
+			}
+			return View(model);
+		}
 
-		//			return RedirectToAction("Index", "Home");
-		//		}
-		//		ModelState.AddModelError("", response.Description);
-		//	}
-		//	return View(model);
-		//}
+		[HttpGet]
+        public async Task<IActionResult> Loggout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
 
-		//[ValidateAntiForgeryToken]
-		//public async Task<IActionResult> Logout()
-		//{
-		//	await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-		//	return RedirectToAction("Index", "Home");
-		//}
-
-	}
+    }
 }

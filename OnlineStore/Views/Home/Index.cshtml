@@ -5,21 +5,39 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-9">
-            <div id="carouselExampleSlidesOnly" class="carousel slide shadow rounded" data-bs-ride="carousel">
-                <div class="carousel-inner h-100">
-                    <div class="carousel-item h-100 active">
-                        <img src="~/image/carousel/binoculars.png" class="d-block w-100" alt="Recipes">
+            <div id="carouselExampleIndicators" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="~/image/carousel/carosel1.svg" class="d-block w-100" alt="Recipes">
                     </div>
-                    <div class="carousel-item h-100">
-                        <img src="~/image/carousel/locel.png" class="d-block w-100" alt="Recipes">
+                    <div class="carousel-item">
+                        <img src="~/image/carousel/carosel2.svg" class="d-block w-100" alt="Recipes">
                     </div>
-                    <div class="carousel-item h-100">
-                        <img src="~/image/carousel/weapon.png" class="d-block w-100" alt="Recipes">
+                    <div class="carousel-item">
+                        <img src="~/image/carousel/carosel3.svg" class="d-block w-100" alt="Recipes">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/image/carousel/carosel4.svg" class="d-block w-100" alt="Recipes">
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
     </div>
+
 
     <div class="row justify-content-center mt-3">
         <div class="col-md-9">
@@ -27,14 +45,21 @@
             <div class="shadow rounded p-3">
                 <div class="mb-1 p-2">
                     <h2>
-                        У нас есть <span class="text-success fst-italic">все</span>
-                        для <span class="text-success fst-italic dt">охоты</span> и
-                        <span class="text-success fst-italic">рыбалки</span>
+                            У нас есть <span class="text-success fst-italic">все</span>
+                            для<span class="text-success fst-italic dt">охоты</span> и
+                            <span class="text-success fst-italic">рыбалки</span>
                     </h2>
                 </div>
                 <div class="mb-1 p-2">
                     <span><i class="fa-solid fa-binoculars text-success mx-2 fs-4"></i></span>
-                    <span class="fs-4 text-dark fst-italic">Охота</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="fs-4 text-dark fst-italic">зАшел</span>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <span class="fs-4 text-dark fst-italic">Вышел</span>
+                    }
                     <p class="py-2 wordSpacing">Маскировка Манки Посадочные-чучела</p>
                 </div>
                 <div class="mb-1 p-2">

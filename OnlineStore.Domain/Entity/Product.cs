@@ -14,6 +14,7 @@ namespace OnlineStore.Domain.Entity
 		public string Description { get; set; }
 		public decimal Price { get; set; }
 		public TypeProduct TypeProduct { get; set; }
-		//public byte[]? Avatar { get; set; }
+
+		public string Image { get; set; }
 	}
 }
