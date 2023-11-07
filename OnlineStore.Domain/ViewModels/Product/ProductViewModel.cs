@@ -30,9 +30,9 @@ namespace OnlineStore.Domain.ViewModels.Product
 		[Required(ErrorMessage = "Выберите тип")]
 		public string TypeProduct { get; set; }
 
-		public IFormFile Avatar { get; set; }
-
-		public byte[]? Image { get; set; }
+		[Display(Name = "Фотография")]
+		[Required(ErrorMessage = "Выберите фото")]
+		public string Image { get; set; }
 	}
 }
 

@@ -74,12 +74,7 @@ namespace OnlineStore.Controllers
 			{
 				if (productViewModel.Id == 0)
 				{
-					byte[] imageData;
-					using (var binaryReader = new BinaryReader(productViewModel.Avatar.OpenReadStream()))
-					{
-						imageData = binaryReader.ReadBytes((int)productViewModel.Avatar.Length);
-					}
-					await _productsService.Create(productViewModel, imageData);
+					await _productsService.Create(productViewModel);
 				}
 				else 
 				{

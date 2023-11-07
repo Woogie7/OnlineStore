@@ -60,7 +60,7 @@ namespace OnlineStore.Service.Implementations
 					Name = product.Name,
 					Price = product.Price,
 					TypeProduct = product.TypeProduct.GetDisplayName(),
-					//Image = product.Avatar,
+					Image = product.Image
 				};
 
 				return new BaseResponse<ProductViewModel>()
@@ -91,7 +91,9 @@ namespace OnlineStore.Service.Implementations
 						Name = x.Name,
 						Description = x.Description,
 						Price = x.Price,
-						TypeProduct = x.TypeProduct.GetDisplayName()
+						TypeProduct = x.TypeProduct.GetDisplayName(),
+						Image = x.Image
+						
 					})
 					.Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
 					.ToDictionaryAsync(x => x.Id, t => t.Name);
@@ -109,7 +111,7 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-		public async Task<IBaseResponse<Product>> Create(ProductViewModel model, byte[] imageData)
+		public async Task<IBaseResponse<Product>> Create(ProductViewModel model)
 		{
 			try
 			{
@@ -119,7 +121,7 @@ namespace OnlineStore.Service.Implementations
 					Description = model.Description,
 					TypeProduct = (TypeProduct)Convert.ToInt32(model.TypeProduct),
 					Price = model.Price,
-					//Avatar = imageData
+					Image = model.Image
 				};
 				await _repository.Create(product);
 

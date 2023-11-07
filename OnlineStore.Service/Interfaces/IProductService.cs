@@ -14,7 +14,7 @@ namespace OnlineStore.Service.Interfaces
 
 		Task<BaseResponse<Dictionary<int, string>>> GetProduct(string term);
 
-		Task<IBaseResponse<Product>> Create(ProductViewModel product, byte[] imageData);
+		Task<IBaseResponse<Product>> Create(ProductViewModel product);
 
 		Task<IBaseResponse<bool>> DeleteProduct(long id);
 

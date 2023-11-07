@@ -3,4 +3,39 @@
 @{
 	Layout = "_layout";
 }
-<p>@Model.Description</p>
+<div class="container">
+	<h3 class="display-4">Подробнее о товаре</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<div>
+				<img class="d-block product-image" src="~/image/product/@Model.Image"/>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>@Model.Name</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-primary">
+					<p class="text-feild">@Model.Price руб.</p>
+					<p class="font-monospace">@Model.TypeProduct</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>@Model.Description</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-4">
+					<button class="btn btn-outline-primary">
+						Купить
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
