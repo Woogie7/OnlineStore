@@ -15,13 +15,39 @@
 				<div class="mb-3">
 					<h2 class="text-black">Авторизация</h2>
 					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
+					<br />
+					<span class="text-feild">@Html.ValidationMessageFor(model => model.NameOrEmail)</span>
+				</div>
+				<div class="form-floating mb-3">
+					<input asp-for="NameOrEmail" placeholder="Логин или Email" class="form-control textbox-dg font-weight-bold text-center" type="text">
+					<label for="NameOrEmail">Логин или Email</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+					<label for="Password">Пароль</label>
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-sm btn-dark w-100 p-2 shadow rounded" type="submit">Login</button>
+				</div>
+				<div class="mb-3">
+					<span>
+						Если у вас нет аккаунта, то
+						<a class="text-success fst-italic" asp-area="" asp-controller="Account" asp-action="Register">Зарегистрируйся</a>
+					</span>
+				</div>
+			</form>
+
+			@* <form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Account" asp-action="Login">
+				<div class="mb-3">
+					<h2 class="text-black">Авторизация</h2>
+					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
 					<br/>
 					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
 				</div>
 				<div class="form-floating mb-3">
 					<input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
 					<label for="Name">Имя</label>
-				</div>
+				</div
 				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
 					<label for="Password">Пароль</label>
@@ -35,7 +61,7 @@
 					</span>
 				</div>
 
-			</form>
+			</form> *@
 		</div>
 	</div>
 </div>

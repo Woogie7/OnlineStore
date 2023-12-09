@@ -21,6 +21,17 @@
 					<label for="Name">Имя</label>
 				</div>
 				<div class="form-floating mb-3">
+					<input asp-for="Email" class="form-control textbox-dg font-weight-bold text-center" placeholder="Email" type="text">
+					<label for="Email">Email</label>
+				</div>
+
+				<button type="button" id="sendCodeBtn" class="btn btn-sm btn-primary w-100 p-2 shadow rounded">Отправить код на почту</button>
+
+				<div class="form-floating mb-3">
+					<input asp-for="ConfirmCode" class="form-control textbox-dg font-weight-bold text-center" placeholder="Код потверждения" type="text">
+					<label for="СonfirmСode">Код</label>
+				</div>
+				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
 
 					<label for="Password">Пароль</label>
@@ -36,5 +47,30 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		document.getElementById('sendCodeBtn').addEventListener('click', function () {
+			// Get the email value from the input field
+			var email = document.getElementById('Email').value;
+
+			// Make an asynchronous request to the server
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '/Account/SendConfirmationCode', true);
+			xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					// Handle the successful response, if needed
+					alert('Code sent successfully');
+				} else {
+					// Handle the error response, if needed
+					alert('Failed to send code');
+				}
+			};
+			xhr.send(JSON.stringify(email)); // Send the email as a plain string
+		});
+	});
+</script>
+
 
 

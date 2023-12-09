@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ namespace OnlineStore.Domain.Enum
 {
 	public enum Role
 	{
-		User = 0,
-		Moderatoe = 1,
-		Admin = 2,
-	}
+        [Display(Name = "Пользователь")]
+        User = 0,
+        [Display(Name = "Админ")]
+        Admin = 1,
+    }
 }

@@ -28,7 +28,7 @@ namespace OnlineStore.Domain.ViewModels.Product
 
 		[Display(Name = "Тип продукта")]
 		[Required(ErrorMessage = "Выберите тип")]
-		public string TypeProduct { get; set; }
+		public TypeProduct TypeProduct { get; set; }
 
 		[Display(Name = "Фотография")]
 		[Required(ErrorMessage = "Выберите фото")]

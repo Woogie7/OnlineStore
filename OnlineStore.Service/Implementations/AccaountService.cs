@@ -30,12 +30,12 @@ namespace OnlineStore.Service.Implementations
 		{
 			try
 			{
-				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name || x.Email ==model.Email);
 				if (user != null)
 				{
 					return new BaseResponse<ClaimsIdentity>()
 					{
-						Description = "Пользователь с таким логином уже есть",
+						Description = "Пользователь с таким логином или почтой уже существует",
 					};
 				}
 
@@ -44,6 +44,7 @@ namespace OnlineStore.Service.Implementations
 					Name = model.Name,
 					Role = Role.User,
 					Password = HashPasswordUsers.HashPassowrd(model.Password),
+					Email = model.Email,
 				};
 
 				await _userRepository.Create(user);
@@ -70,7 +71,7 @@ namespace OnlineStore.Service.Implementations
 		{
 			try
 			{
-				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.NameOrEmail || x.Email == model.NameOrEmail);
 				if (user == null)
 				{
 					return new BaseResponse<ClaimsIdentity>()

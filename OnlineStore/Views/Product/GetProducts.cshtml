@@ -5,6 +5,18 @@
 	Layout = "_layout";
 }
 
+<form method="get" asp-controller="Product" asp-action="GetProductByName">
+	<div class="input-group">
+		<input class="form-control" name="inputName" autocomplete="off"/>
+		<div class="input-group-lg">
+			<button type="submit" class="btn btn-primary">
+				Поиск
+			</button>
+		</div>
+	</div>
+</form>
+
+
 <div class="container mb-4">
 	<h3>Все продукты</h3>
 	<div class="row">

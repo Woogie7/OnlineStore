@@ -31,8 +31,9 @@ namespace OnlineStore.DAL
 					Id = 1,
 					Name = "Test",
 					Password = HashPasswordUsers.HashPassowrd("123"),
-					Role = Role.Admin
-				});
+					Role = Role.Admin,
+					Email = "huntandfishdylo@gmail.com"
+                });
 
 				bulder.ToTable("Users").HasKey(x => x.Id);
 
@@ -41,6 +42,8 @@ namespace OnlineStore.DAL
 				bulder.Property(x => x.Name).HasMaxLength(100).IsRequired();
 
 				bulder.Property(x => x.Password).IsRequired();
+
+				bulder.Property(x => x.Email).IsRequired();
 			});
 		}
 	}

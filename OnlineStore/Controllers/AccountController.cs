@@ -12,10 +12,12 @@ namespace OnlineStore.Controllers
 	public class AccountController : Controller
 	{
 		private readonly IAccountService _accountService;
+		private readonly IEmailSenderService _emailSenderService;
 
-		public AccountController(IAccountService accountService)
+		public AccountController(IAccountService accountService, IEmailSenderService emailSenderService)
 		{
 			_accountService = accountService;
+			_emailSenderService = emailSenderService;
 		}
 
 		[HttpGet]
@@ -70,5 +72,21 @@ namespace OnlineStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-    }
+		[HttpPost]
+		public IActionResult SendConfirmationCode([FromBody] string email)
+		{
+			string confirmationCode = GenerateConfirmationCode();
+			_emailSenderService.SendEmailAsync(email, "Код подтверждения", confirmationCode);
+
+			return Ok(); // Assuming success; you can modify this based on your needs
+		}
+
+
+		private string GenerateConfirmationCode()
+		{
+			Random random = new Random();
+			int confirmationCode = random.Next(100000, 999999);
+			return confirmationCode.ToString();
+		}
+	}
 }

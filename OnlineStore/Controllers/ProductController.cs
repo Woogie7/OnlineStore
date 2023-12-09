@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using OnlineStore.Domain.Entity;
 using OnlineStore.Domain.ViewModels.Product;
 using OnlineStore.Service.Interfaces;
 
@@ -17,9 +18,9 @@ namespace OnlineStore.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult GetProducts()
+		public async Task<IActionResult> GetProducts()
 		{
-			var response = _productsService.GetProducts();
+			var response = await _productsService.GetProducts();
 			if (response.Status == Domain.Enum.StatusCode.OK)
 			{
 				return View(response.Data);
@@ -37,6 +38,28 @@ namespace OnlineStore.Controllers
 			}
 			return RedirectToAction("Error");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetProductByName(string inputName)
+		{
+			if (inputName == null)
+			{
+				return RedirectToAction("GetProducts");
+			}
+			else
+			{
+				var response = await _productsService.GetProduct(inputName);
+				if (response.Status == Domain.Enum.StatusCode.OK)
+				{
+					return View("GetProducts", response.Data);
+				}
+				return RedirectToAction("Error");
+			}
+		}
+
+
+
+		#region Admin 
 
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Delete(int id)
@@ -84,5 +107,7 @@ namespace OnlineStore.Controllers
 			}
 			return RedirectToAction("GetProducts");
 		}
+
+		#endregion
 	}
 }

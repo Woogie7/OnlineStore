@@ -8,16 +8,15 @@ namespace OnlineStore.Service.Interfaces
 	{
 		BaseResponse<Dictionary<int, string>> GetTypes();
 
-		IBaseResponse<List<Product>> GetProducts();
+		Task<IBaseResponse<List<Product>>> GetProducts();
 
 		Task<IBaseResponse<ProductViewModel>> GetProduct(long id);
-
-		Task<BaseResponse<Dictionary<int, string>>> GetProduct(string term);
 
 		Task<IBaseResponse<Product>> Create(ProductViewModel product);
 
 		Task<IBaseResponse<bool>> DeleteProduct(long id);
 
 		Task<IBaseResponse<Product>> Edit(long id, ProductViewModel model);
+		Task<IBaseResponse<List<Product>>> GetProduct(string term);
 	}
 }

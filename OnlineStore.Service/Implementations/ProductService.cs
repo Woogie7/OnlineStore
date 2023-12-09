@@ -17,24 +17,102 @@ namespace OnlineStore.Service.Implementations
 			_repository = productRepository;
 		}
 
-		public BaseResponse<Dictionary<int, string>> GetTypes()
+		public async Task<IBaseResponse<Product>> Create(ProductViewModel product)
 		{
 			try
 			{
-				var types = ((TypeProduct[])Enum.GetValues(typeof(TypeProduct)))
-					.ToDictionary(k => (int)k, t => t.GetDisplayName());
-
-				return new BaseResponse<Dictionary<int, string>>()
+				var productNew = new Product()
 				{
-					Data = types,
-					Status = StatusCode.OK
+					Name = product.Name,
+					Description = product.Description,
+					Price = product.Price,
+					TypeProduct = product.TypeProduct,
+				};
+				await _repository.Create(productNew);
+
+				return new BaseResponse<Product>()
+				{
+					Status = StatusCode.OK,
+					Data = productNew
 				};
 			}
 			catch (Exception ex)
 			{
-				return new BaseResponse<Dictionary<int, string>>()
+				return new BaseResponse<Product>()
 				{
-					Description = ex.Message,
+					Description = $"[Create] : {ex.Message}",
+					Status = StatusCode.InternalErrorServer
+				};
+			}
+		}
+
+		public async Task<IBaseResponse<bool>> DeleteProduct(long id)
+		{
+			try
+			{
+				var car = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+				if (car == null)
+				{
+					return new BaseResponse<bool>()
+					{
+						Description = "User not found",
+						Status = StatusCode.UserNotFound,
+						Data = false
+					};
+				}
+
+				await _repository.Delete(car);
+
+				return new BaseResponse<bool>()
+				{
+					Data = true,
+					Status = StatusCode.OK
+				};
+			}
+			catch(Exception ex)
+			{
+				return new BaseResponse<bool>()
+				{
+					Description = $"[Create] : {ex.Message}",
+					Status = StatusCode.InternalErrorServer
+				};
+			}
+		}
+
+		public async Task<IBaseResponse<Product>> Edit(long id, ProductViewModel model)
+		{
+			try
+			{
+				var productEdit = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+				if (productEdit == null)
+				{
+					return new BaseResponse<Product>()
+					{
+						Description = "Car not found",
+						Status = StatusCode.ProductNotFound
+					};
+				}
+
+				productEdit.Description = model.Description;
+				productEdit.Price = model.Price;
+				productEdit.Name = model.Name;
+				productEdit.TypeProduct = model.TypeProduct;
+
+				await _repository.Update(productEdit);
+
+
+				return new BaseResponse<Product>()
+				{
+					Data = productEdit,
+					Status = StatusCode.OK,
+				};
+				// TypeCar
+			}
+			catch (Exception ex)
+			{
+				return new BaseResponse<Product>()
+				{
+					Description = $"[Edit] : {ex.Message}",
 					Status = StatusCode.InternalErrorServer
 				};
 			}
@@ -56,10 +134,10 @@ namespace OnlineStore.Service.Implementations
 
 				var data = new ProductViewModel()
 				{
-					Description = product.Description,
 					Name = product.Name,
+					Description = product.Description,
 					Price = product.Price,
-					TypeProduct = product.TypeProduct.GetDisplayName(),
+					TypeProduct = product.TypeProduct,
 					Image = product.Image
 				};
 
@@ -74,148 +152,29 @@ namespace OnlineStore.Service.Implementations
 				return new BaseResponse<ProductViewModel>()
 				{
 					Description = $"[GetCar] : {ex.Message}",
-					Status = StatusCode.InternalErrorServer
+					Status= StatusCode.InternalErrorServer
 				};
 			}
 		}
 
-		public async Task<BaseResponse<Dictionary<int, string>>> GetProduct(string term)
+		public async Task<IBaseResponse<List<Product>>> GetProduct(string term)
 		{
-			var baseResponse = new BaseResponse<Dictionary<int, string>>();
 			try
 			{
 				var products = await _repository.GetAll()
-					.Select(x => new ProductViewModel()
-					{
-						Id = x.Id,
-						Name = x.Name,
-						Description = x.Description,
-						Price = x.Price,
-						TypeProduct = x.TypeProduct.GetDisplayName(),
-						Image = x.Image
-						
-					})
-					.Where(x => EF.Functions.Like(x.Name, $"%{term}%"))
-					.ToDictionaryAsync(x => x.Id, t => t.Name);
+					.Where(x => x.Name.Contains(term))
+					.ToListAsync();
 
-				baseResponse.Data = products;
-				return baseResponse;
-			}
-			catch (Exception ex)
-			{
-				return new BaseResponse<Dictionary<int, string>>()
+				var productViewModels = products.Select(x => new ProductViewModel()
 				{
-					Description = ex.Message,
-					Status = StatusCode.InternalErrorServer
-				};
-			}
-		}
+					Id = x.Id,
+					Name = x.Name,
+					Description = x.Description,
+					Price = x.Price,
+					TypeProduct = x.TypeProduct,
+					Image = x.Image
+				}).ToList();
 
-		public async Task<IBaseResponse<Product>> Create(ProductViewModel model)
-		{
-			try
-			{
-				var product = new Product()
-				{
-					Name = model.Name,
-					Description = model.Description,
-					TypeProduct = (TypeProduct)Convert.ToInt32(model.TypeProduct),
-					Price = model.Price,
-					Image = model.Image
-				};
-				await _repository.Create(product);
-
-				return new BaseResponse<Product>()
-				{
-					Status = StatusCode.OK,
-					Data = product
-				};
-			}
-			catch (Exception ex)
-			{
-				return new BaseResponse<Product>()
-				{
-					Description = $"[Create] : {ex.Message}",
-					Status = StatusCode.InternalErrorServer
-				};
-			}
-		}
-
-		public async Task<IBaseResponse<bool>> DeleteProduct(long id)
-		{
-			try
-			{
-				var products = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
-				if (products == null)
-				{
-					return new BaseResponse<bool>()
-					{
-						Description = "User not found",
-						Status = StatusCode.UserNotFound,
-						Data = false
-					};
-				}
-
-				await _repository.Delete(products);
-
-				return new BaseResponse<bool>()
-				{
-					Data = true,
-					Status = StatusCode.OK
-				};
-			}
-			catch (Exception ex)
-			{
-				return new BaseResponse<bool>()
-				{
-					Description = $"[DeleteProduct] : {ex.Message}",
-					Status = StatusCode.InternalErrorServer
-				};
-			}
-		}
-
-		public async Task<IBaseResponse<Product>> Edit(long id, ProductViewModel model)
-		{
-			try
-			{
-				var product = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
-				if (product == null)
-				{
-					return new BaseResponse<Product>()
-					{
-						Description = "Car not found",
-						Status = StatusCode.InternalErrorServer
-					};
-				}
-
-				product.Description = model.Description;
-				product.Price = model.Price;
-				product.Name = model.Name;
-
-				await _repository.Update(product);
-
-
-				return new BaseResponse<Product>()
-				{
-					Data = product,
-					Status = StatusCode.OK,
-				};
-			}
-			catch (Exception ex)
-			{
-				return new BaseResponse<Product>()
-				{
-					Description = $"[Edit] : {ex.Message}",
-					Status = StatusCode.InternalErrorServer
-				};
-			}
-		}
-
-		public IBaseResponse<List<Product>> GetProducts()
-		{
-			try
-			{
-				var products = _repository.GetAll().ToList();
 				if (!products.Any())
 				{
 					return new BaseResponse<List<Product>>()
@@ -235,8 +194,63 @@ namespace OnlineStore.Service.Implementations
 			{
 				return new BaseResponse<List<Product>>()
 				{
-					Description = $"[GetProducts] : {ex.Message}",
+					Description = $"[GetProductsAsync] : {ex.Message}",
 					Status = StatusCode.InternalErrorServer
+				};
+			}
+		}
+
+
+		public async Task<IBaseResponse<List<Product>>> GetProducts()
+		{
+			try
+			{
+				var products = await _repository.GetAll().ToListAsync();
+
+				if (!products.Any())
+				{
+					return new BaseResponse<List<Product>>()
+					{
+						Description = "Найдено 0 элементов",
+						Status = StatusCode.OK
+					};
+				}
+
+				return new BaseResponse<List<Product>>()
+				{
+					Data = products,
+					Status = StatusCode.OK
+				};
+			}
+			catch (Exception ex)
+			{
+				return new BaseResponse<List<Product>>()
+				{
+					Description = $"[GetProductsAsync] : {ex.Message}",
+					Status = StatusCode.InternalErrorServer
+				};
+			}
+		}
+
+		public BaseResponse<Dictionary<int, string>> GetTypes()
+		{
+			try
+			{
+				var types = ((TypeProduct[])Enum.GetValues(typeof(TypeProduct)))
+					.ToDictionary(k => (int)k, t => t.GetDisplayName());
+
+				return new BaseResponse<Dictionary<int, string>>()
+				{
+					Data = types,
+					Status = StatusCode.OK
+				};
+			}
+			catch (Exception ex)
+			{
+				return new BaseResponse<Dictionary<int, string>>()
+				{
+					Description = ex.Message,
+					Status= StatusCode.InternalErrorServer
 				};
 			}
 		}

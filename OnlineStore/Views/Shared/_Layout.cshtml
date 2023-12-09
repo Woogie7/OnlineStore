@@ -24,8 +24,16 @@
                             <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Product" asp-action="GetProducts">Catalog</a>
+                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Product" asp-action="GetProducts">Каталог</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link paragraphLayout active text-black" asp-controller="User" asp-action="GetUsers">
+                                    Админ
+                                </a>
+                            </li>
+                        }
                     </ul>
                     <div class="nav-link">
                         @if (!User.Identity.IsAuthenticated)
@@ -84,6 +92,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("pageScripts", required: false)
 </body>
 </html>

@@ -10,6 +10,7 @@ namespace OnlineStore.Domain.Enum
 	{
 		UserNotFound = 0,
 		ProductNotFound = 1,
+		UserAlreadyExists = 3,
 		OK = 200,
 		InternalErrorServer = 500
 	}
