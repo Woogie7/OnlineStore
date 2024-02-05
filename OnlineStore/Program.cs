@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 var dbConnection = builder.Configuration.GetConnectionString("dbConnection");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 	options.UseSqlServer(dbConnection));

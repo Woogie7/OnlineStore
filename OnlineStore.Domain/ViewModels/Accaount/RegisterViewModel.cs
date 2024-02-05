@@ -12,16 +12,8 @@ namespace OnlineStore.Domain.ViewModels.Accaount
 		[Required(ErrorMessage = "Укажите имя")]
 		[MaxLength(20, ErrorMessage = "Имя должно иметь длину меньше 20 символов")]
 		[MinLength(3, ErrorMessage = "Имя должно иметь длину больше 3 символов")]
+		[RegularExpression("/^[a-zA-Z0-9]+$/", ErrorMessage = "Неверный логин")]
 		public string Name { get; set; }
-
-		[Display(Name = "Електроная почта")]
-		[Required(ErrorMessage = "Требуется указать адрес электронной почты")]
-		[EmailAddress(ErrorMessage = "Неверный адрес электронной почты")]
-		[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Неверный адрес электронной почты")]
-		public string Email { get; set; }
-
-		[Required(ErrorMessage = "КОД ПОТВЕРЖДЕНИЯ")]
-		public string ConfirmCode { get; set; }
 
 		[DataType(DataType.Password)]
 		[Required(ErrorMessage = "Укажите пароль")]

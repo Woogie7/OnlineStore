@@ -46,20 +46,13 @@
                 <div class="mb-1 p-2">
                     <h2>
                             У нас есть <span class="text-success fst-italic">все</span>
-                            для<span class="text-success fst-italic dt">охоты</span> и
+                            для <span class="text-success fst-italic dt">охоты</span> и
                             <span class="text-success fst-italic">рыбалки</span>
                     </h2>
                 </div>
                 <div class="mb-1 p-2">
                     <span><i class="fa-solid fa-binoculars text-success mx-2 fs-4"></i></span>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <span class="fs-4 text-dark fst-italic">зАшел</span>
-                    }
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <span class="fs-4 text-dark fst-italic">Вышел</span>
-                    }
+                    <span class="fs-4 text-dark fst-italic">Охота</span>
                     <p class="py-2 wordSpacing">Маскировка Манки Посадочные-чучела</p>
                 </div>
                 <div class="mb-1 p-2">

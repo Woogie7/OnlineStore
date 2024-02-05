@@ -16,11 +16,11 @@
 					<h2 class="text-black">Авторизация</h2>
 					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
 					<br />
-					<span class="text-feild">@Html.ValidationMessageFor(model => model.NameOrEmail)</span>
+					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
 				</div>
 				<div class="form-floating mb-3">
-					<input asp-for="NameOrEmail" placeholder="Логин или Email" class="form-control textbox-dg font-weight-bold text-center" type="text">
-					<label for="NameOrEmail">Логин или Email</label>
+					<input asp-for="Name" placeholder="Введите логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
+					<label for="Name">Логин</label>
 				</div>
 				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">

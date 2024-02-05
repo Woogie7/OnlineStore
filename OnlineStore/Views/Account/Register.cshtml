@@ -13,23 +13,15 @@
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
 			<form autocomplete="off" method="post" class="p-2 m-2" asp-controller="Account" asp-action="Register">
 				<div class="mb-3">
-					<h2 class="text-black">Регистрация</h2>
+					<h2 class="text-black">Авторизация</h2>
+					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
+					<br />
 					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
+					<span class="text-feild">@Html.ValidationMessageFor(model => model.PasswordConfirm)</span>
 				</div>
 				<div class="form-floating mb-3">
 					<input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Имя" type="text">
 					<label for="Name">Имя</label>
-				</div>
-				<div class="form-floating mb-3">
-					<input asp-for="Email" class="form-control textbox-dg font-weight-bold text-center" placeholder="Email" type="text">
-					<label for="Email">Email</label>
-				</div>
-
-				<button type="button" id="sendCodeBtn" class="btn btn-sm btn-primary w-100 p-2 shadow rounded">Отправить код на почту</button>
-
-				<div class="form-floating mb-3">
-					<input asp-for="ConfirmCode" class="form-control textbox-dg font-weight-bold text-center" placeholder="Код потверждения" type="text">
-					<label for="СonfirmСode">Код</label>
 				</div>
 				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
