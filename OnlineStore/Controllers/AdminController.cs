@@ -45,7 +45,7 @@ namespace OnlineStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            IEnumerable<TypeProduct> typeProducts = await _productService.GetTypes(); // Replace _yourRepository.GetTypes() with your actual method to get types from the database
+            IEnumerable<TypeProduct> typeProducts = await _productService.GetTypes(); 
 
             IEnumerable<SelectListItem> typeProductsSelectList = typeProducts
             .Select(tp => new SelectListItem
@@ -83,6 +83,17 @@ namespace OnlineStore.Controllers
 
             if (productResponse.Status == Domain.Enum.StatusCode.OK)
             {
+                IEnumerable<TypeProduct> typeProducts = await _productService.GetTypes();
+
+                IEnumerable<SelectListItem> typeProductsSelectList = typeProducts
+                .Select(tp => new SelectListItem
+                {
+                    Text = tp.Name,
+                    Value = tp.Id.ToString()
+                });
+
+                ViewBag.TypeProductId = typeProductsSelectList;
+
                 return View(productResponse.Data);
             }
 
@@ -92,7 +103,6 @@ namespace OnlineStore.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(ProductViewModel productViewModel)
 		{
-			// Ваш код для сохранения или обновления продукта
 			var result = await _productService.Edit(productViewModel.Id, productViewModel);
 
 			if (result.Status == Domain.Enum.StatusCode.OK)

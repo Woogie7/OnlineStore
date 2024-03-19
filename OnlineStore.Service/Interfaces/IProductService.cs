@@ -17,6 +17,7 @@ namespace OnlineStore.Service.Interfaces
 		Task<IBaseResponse<bool>> DeleteProduct(int id);
 
 		Task<IBaseResponse<Product>> Edit(int id, ProductViewModel model);
-		//Task<IBaseResponse<List<Product>>> GetProduct(string term);
+		
+		Task<IBaseResponse<IEnumerable<Product>>> GetProduct(string term);
 	}
 }

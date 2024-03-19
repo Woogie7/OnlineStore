@@ -32,9 +32,9 @@ namespace OnlineStore.DAL.Repositories
             return await _db.TypeProducts.ToListAsync();
         }
 
-        public Task<TypeProduct> GetById(int id)
+        public async Task<TypeProduct> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _db.TypeProducts.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<TypeProduct> GetByName(string name)

@@ -37,7 +37,9 @@ namespace OnlineStore.DAL.Repositories
 
         public async Task<Product> GetById(int id)
         {
-			return await _db.product.FirstOrDefaultAsync(p => p.Id == id);
+			return await _db.product
+                .Include(p => p.TypeProduct)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public Task<Product> GetByName(string name)

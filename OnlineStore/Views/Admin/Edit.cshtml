@@ -4,40 +4,33 @@
 @model ProductViewModel
 
 <h1>Изменить</h1>
-<form method="post" action="Create" class="mt-5">
+<form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Admin" asp-action="Edit">
     <div class="mb-3">
-        <label for="Name" class="form-label">Id</label>
-        <input type="text" id="Id" class="form-control" asp-for="Id" readonly />
-        <span asp-validation-for="Id" class="text-danger"></span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Description)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Price)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.TypeProduct)</span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" placeholder="Название продукта" class="form-control" type="text">
+        <label for="Name">Название</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Description" placeholder="Описание продукта" class="form-control" type="text">
+        <label for="Description">Описание</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Price" placeholder="Цена продукта" class="form-control" type="number">
+        <label for="Price">Стоимость</label>
     </div>
     <div class="mb-3">
-        <label for="Name" class="form-label">Название</label>
-        <input type="text" id="Name" class="form-control" asp-for="Name" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="TypeProductId" class="control-label">Тип продукта</label>
+        <select id="TypeProductId" class="form-control" asp-for="TypeProductId" asp-items="ViewBag.TypeProductId"></select>
     </div>
-    <div class="mb-3">
-        <label for="Description" class="form-label">Описание</label>
-        <textarea id="Description" class="form-control" asp-for="Description"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label for="Price" class="form-label">Стоимость</label>
-        <input type="number" id="Price" class="form-control" asp-for="Price" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label for="TypeProduct" class="form-label">Тип продукта</label>
-        <select id="TypeProduct" class="form-control" asp-for="TypeProduct">
-            <option value="">Выберите тип</option>
-            
-        </select>
-        <span asp-validation-for="TypeProduct" class="text-danger"></span>
-    </div>
-
     <div class="mb-3">
         <label for="Image" class="form-label">Фотография</label>
         <input type="file" id="Image" class="form-control" asp-for="Image" accept="image/*" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
+    <button type="submit" class="btn btn-primary">Изменить</button>
 </form>

@@ -40,22 +40,22 @@ namespace OnlineStore.Controllers
 		}
 
 		[HttpGet]
-		//public async Task<IActionResult> GetProductByName(string inputName)
-		//{
-		//	if (inputName == null)
-		//	{
-		//		return RedirectToAction("GetProducts");
-		//	}
-		//	else
-		//	{
-		//		var response = await _productsService.GetProduct(inputName);
-		//		if (response.Status == Domain.Enum.StatusCode.OK)
-		//		{
-		//			return View("GetProducts", response.Data);
-		//		}
-		//		return RedirectToAction("Error");
-		//	}
-		//}
+		public async Task<IActionResult> GetProductByName(string inputName)
+		{
+			if (inputName == null)
+			{
+				return RedirectToAction("GetProducts");
+			}
+			else
+			{
+				var response = await _productsService.GetProduct(inputName);
+				if (response.Status == Domain.Enum.StatusCode.OK)
+				{
+					return View("GetProducts", response.Data);
+				}
+				return RedirectToAction("Error");
+			}
+		}
 
 
 
