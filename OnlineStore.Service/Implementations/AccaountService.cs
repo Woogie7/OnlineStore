@@ -30,7 +30,8 @@ namespace OnlineStore.Service.Implementations
 		{
 			try
 			{
-				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+				var user = await _userRepository.GetByName(model.Name);
+
 				if (user != null)
 				{
 					return new BaseResponse<ClaimsIdentity>()
@@ -70,8 +71,9 @@ namespace OnlineStore.Service.Implementations
 		{
 			try
 			{
-				var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
-				if (user == null)
+				var user = await _userRepository.GetByName(model.Name);
+
+                if (user == null)
 				{
 					return new BaseResponse<ClaimsIdentity>()
 					{

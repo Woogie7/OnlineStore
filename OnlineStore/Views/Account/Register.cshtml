@@ -2,7 +2,6 @@
 @{
 	ViewData["Title"] = "Register";
 }
-
 <div class="container">
 	<div class="row shadow rounded">
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -11,13 +10,10 @@
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-			<form autocomplete="off" method="post" class="p-2 m-2" asp-controller="Account" asp-action="Register">
+			<form autocomplete="off" method="post" class="p-2 m-2">
 				<div class="mb-3">
-					<h2 class="text-black">Авторизация</h2>
-					<span class="text-muted text-feild">Войдите в свой аккаунт</span>
-					<br />
+					<h2 class="text-black">Регистрация</h2>
 					<span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
-					<span class="text-feild">@Html.ValidationMessageFor(model => model.PasswordConfirm)</span>
 				</div>
 				<div class="form-floating mb-3">
 					<input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Имя" type="text">
@@ -25,13 +21,13 @@
 				</div>
 				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
-
 					<label for="Password">Пароль</label>
 				</div>
 				<div class="form-floating mb-3">
 					<input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
 					<label for="PasswordConfirm">Подтверждение пороля</label>
 				</div>
+
 				<div>
 					<button class="btn btn-sm btn-dark w-100 p-2 shadow rounded" type="submit">Зарегистрироваться</button>
 				</div>
@@ -39,30 +35,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		document.getElementById('sendCodeBtn').addEventListener('click', function () {
-			// Get the email value from the input field
-			var email = document.getElementById('Email').value;
-
-			// Make an asynchronous request to the server
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/Account/SendConfirmationCode', true);
-			xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-			xhr.onload = function () {
-				if (xhr.status === 200) {
-					// Handle the successful response, if needed
-					alert('Code sent successfully');
-				} else {
-					// Handle the error response, if needed
-					alert('Failed to send code');
-				}
-			};
-			xhr.send(JSON.stringify(email)); // Send the email as a plain string
-		});
-	});
-</script>
-
-
-

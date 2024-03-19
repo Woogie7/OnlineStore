@@ -21,6 +21,7 @@ namespace OnlineStore.DAL
 		public DbSet<Product> product { get; set; }
 
 		public DbSet<User> Users { get; set; }
+		public DbSet<TypeProduct> TypeProducts { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -31,8 +32,7 @@ namespace OnlineStore.DAL
 					Id = 1,
 					Name = "Test",
 					Password = HashPasswordUsers.HashPassowrd("123"),
-					Role = Role.Admin,
-					Email = "huntandfishdylo@gmail.com"
+					Role = Role.Admin
                 });
 
 				bulder.ToTable("Users").HasKey(x => x.Id);
@@ -42,8 +42,6 @@ namespace OnlineStore.DAL
 				bulder.Property(x => x.Name).HasMaxLength(100).IsRequired();
 
 				bulder.Property(x => x.Password).IsRequired();
-
-				bulder.Property(x => x.Email).IsRequired();
 			});
 		}
 	}

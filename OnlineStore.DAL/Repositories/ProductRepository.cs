@@ -30,12 +30,22 @@ namespace OnlineStore.DAL.Repositories
 			await _db.SaveChangesAsync();
 		}
 
-		public IQueryable<Product> GetAll()
-		{
-			return _db.product;
-		}
+        public async Task<IEnumerable<Product>> GetAll()
+        {
+            return await _db.product.Include(x => x.TypeProduct).ToListAsync();
+        }
 
-		public async Task<Product> Update(Product entity)
+        public async Task<Product> GetById(int id)
+        {
+			return await _db.product.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public Task<Product> GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Product> Update(Product entity)
 		{
 			_db.product.Update(entity);
 			await _db.SaveChangesAsync();

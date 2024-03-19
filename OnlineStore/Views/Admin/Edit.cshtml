@@ -1,0 +1,43 @@
+﻿@using OnlineStore.Domain.Enum;
+@using OnlineStore.Domain.ViewModels.Product;
+@using System.ComponentModel.DataAnnotations
+@model ProductViewModel
+
+<h1>Изменить</h1>
+<form method="post" action="Create" class="mt-5">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Id</label>
+        <input type="text" id="Id" class="form-control" asp-for="Id" readonly />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Название</label>
+        <input type="text" id="Name" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Описание</label>
+        <textarea id="Description" class="form-control" asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Price" class="form-label">Стоимость</label>
+        <input type="number" id="Price" class="form-control" asp-for="Price" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="TypeProduct" class="form-label">Тип продукта</label>
+        <select id="TypeProduct" class="form-control" asp-for="TypeProduct">
+            <option value="">Выберите тип</option>
+            
+        </select>
+        <span asp-validation-for="TypeProduct" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="Image" class="form-label">Фотография</label>
+        <input type="file" id="Image" class="form-control" asp-for="Image" accept="image/*" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

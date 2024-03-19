@@ -29,7 +29,7 @@ namespace OnlineStore.Service.Implementations
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.Name);
+                var user = await _userRepository.GetByName(model.Name);
                 if (user != null)
                 {
                     return new BaseResponse<User>()
@@ -87,40 +87,40 @@ namespace OnlineStore.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers()
+        //public async Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers()
+        //{
+        //    try
+        //    {
+        //        var users = await _userRepository.GetAll();
+
+        //        users.Select(x => new UserViewModel()
+        //        {
+        //            Id = x.Id,
+        //            Name = x.Name,
+        //            Role = x.Role.GetDisplayName()
+        //        });
+
+        //        return new BaseResponse<IEnumerable<UserViewModel>>()
+        //        {
+        //            Data = users,
+        //            Status = StatusCode.OK
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    { 
+        //        return new BaseResponse<IEnumerable<UserViewModel>>()
+        //        {
+        //            Status = StatusCode.InternalErrorServer,
+        //            Description = $"Внутренняя ошибка: {ex.Message}"
+        //        };
+        //    }
+        //}
+
+        public async Task<IBaseResponse<bool>> DeleteUser(int id)
         {
             try
             {
-                var users = await _userRepository.GetAll()
-                    .Select(x => new UserViewModel()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Role = x.Role.GetDisplayName()
-                    })
-                    .ToListAsync();
-
-                return new BaseResponse<IEnumerable<UserViewModel>>()
-                {
-                    Data = users,
-                    Status = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            { 
-                return new BaseResponse<IEnumerable<UserViewModel>>()
-                {
-                    Status = StatusCode.InternalErrorServer,
-                    Description = $"Внутренняя ошибка: {ex.Message}"
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<bool>> DeleteUser(long id)
-        {
-            try
-            {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                var user = await _userRepository.GetById(id);
                 if (user == null)
                 {
                     return new BaseResponse<bool>
@@ -145,6 +145,11 @@ namespace OnlineStore.Service.Implementations
                     Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
+        }
+
+        public Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

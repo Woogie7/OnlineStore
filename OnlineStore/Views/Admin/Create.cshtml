@@ -1,0 +1,38 @@
+﻿@using OnlineStore.Domain.Entity;
+@using OnlineStore.Domain.Enum;
+@using OnlineStore.Domain.ViewModels.Product;
+@using System.ComponentModel.DataAnnotations
+@model ProductViewModel
+
+<h1>Добавить продукт</h1>
+<form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Admin" asp-action="Create">
+    <div class="mb-3">
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Description)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.Price)</span>
+        <span class="text-feild">@Html.ValidationMessageFor(model => model.TypeProduct)</span>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Name" placeholder="Название продукта" class="form-control" type="text">
+        <label for="Name">Название</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Description" placeholder="Описание продукта" class="form-control" type="text">
+        <label for="Description">Описание</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Price" placeholder="Цена продукта" class="form-control" type="number">
+        <label for="Price">Стоимость</label>
+    </div>
+    <div class="mb-3">
+        <label asp-for="TypeProductId" class="control-label">Тип продукта</label>
+        <select id="TypeProductId" class="form-control" asp-for="TypeProductId" asp-items="ViewBag.TypeProductId"></select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Image" class="form-label">Фотография</label>
+        <input type="file" id="Image" class="form-control" asp-for="Image" accept="image/*" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

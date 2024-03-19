@@ -12,7 +12,6 @@ namespace OnlineStore.Domain.ViewModels.Accaount
 		[Required(ErrorMessage = "Укажите имя")]
 		[MaxLength(20, ErrorMessage = "Имя должно иметь длину меньше 20 символов")]
 		[MinLength(3, ErrorMessage = "Имя должно иметь длину больше 3 символов")]
-		[RegularExpression("/^[a-zA-Z0-9]+$/", ErrorMessage = "Неверный логин")]
 		public string Name { get; set; }
 
 		[DataType(DataType.Password)]

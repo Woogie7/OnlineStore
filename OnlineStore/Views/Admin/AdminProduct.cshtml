@@ -1,0 +1,51 @@
+﻿@using OnlineStore.Domain.ViewModels.Product;
+@model List<ProductViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Продукты";
+}
+
+<div class="card col-md-12" style="margin: 10px;">
+    <div class="card-buttons-group">
+        <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="Create">Добавить продукт</a>
+    </div>
+</div>
+//
+
+<div style="padding: 10px;"></div>
+<div class="card col-md-12">
+    <table class="table table-striped">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col">Тип продукта</th>
+                <th scope="col">Фотография</th>
+                <th scope="col">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>@product.TypeProduct.Name</td>
+                    <td>@product.Image</td>
+                    <td>
+                        <a class="btn btn-info" asp-area="" asp-controller="Admin" asp-action="Edit" asp-route-id="@product.Id">Изменить</a>
+                        <form asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

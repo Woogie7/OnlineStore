@@ -17,6 +17,6 @@ namespace OnlineStore.Service.Interfaces
 
         Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers();
 
-        Task<IBaseResponse<bool>> DeleteUser(long id);
+        Task<IBaseResponse<bool>> DeleteUser(int id);
     }
 }

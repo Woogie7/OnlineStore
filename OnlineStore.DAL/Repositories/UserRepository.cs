@@ -1,4 +1,5 @@
-﻿using OnlineStore.DAL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DAL.Interfaces;
 using OnlineStore.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.DAL.Repositories
 {
-	public class UserRepository : IBaseRepository<User>
+    public class UserRepository : IBaseRepository<User>
 	{
 		private readonly ApplicationDBContext _db;
 
@@ -17,9 +18,9 @@ namespace OnlineStore.DAL.Repositories
 			_db = db;
 		}
 
-		public IQueryable<User> GetAll()
+		public async Task<IEnumerable<User>> GetAll()
 		{
-			return _db.Users;
+			return await _db.Users.ToListAsync();
 		}
 
 		public async Task Delete(User entity)
@@ -41,5 +42,15 @@ namespace OnlineStore.DAL.Repositories
 
 			return entity;
 		}
-	}
+
+        public async Task<User> GetById(int id)
+        {
+			return await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> GetByName(string name)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Name == name);
+        }
+    }
 }

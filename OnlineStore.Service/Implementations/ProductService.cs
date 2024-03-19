@@ -11,10 +11,12 @@ namespace OnlineStore.Service.Implementations
 	public class ProductService : IProductService
 	{
 		private readonly IBaseRepository<Product> _repository;
+		private readonly IBaseRepository<TypeProduct> _typeProductRep;
 
-		public ProductService(IBaseRepository<Product> productRepository)
+		public ProductService(IBaseRepository<Product> productRepository, IBaseRepository<TypeProduct> TypeProductRep)
 		{
 			_repository = productRepository;
+			_typeProductRep = TypeProductRep;
 		}
 
 		public async Task<IBaseResponse<Product>> Create(ProductViewModel product)
@@ -27,6 +29,7 @@ namespace OnlineStore.Service.Implementations
 					Description = product.Description,
 					Price = product.Price,
 					TypeProduct = product.TypeProduct,
+					Image = "vobler_smith_camion.jpeg"
 				};
 				await _repository.Create(productNew);
 
@@ -46,11 +49,11 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-		public async Task<IBaseResponse<bool>> DeleteProduct(long id)
+		public async Task<IBaseResponse<bool>> DeleteProduct(int id)
 		{
 			try
 			{
-				var car = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+				var car = await _repository.GetById(id);
 				if (car == null)
 				{
 					return new BaseResponse<bool>()
@@ -69,7 +72,7 @@ namespace OnlineStore.Service.Implementations
 					Status = StatusCode.OK
 				};
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return new BaseResponse<bool>()
 				{
@@ -79,12 +82,12 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-		public async Task<IBaseResponse<Product>> Edit(long id, ProductViewModel model)
+		public async Task<IBaseResponse<Product>> Edit(int id, ProductViewModel model)
 		{
 			try
 			{
-				var productEdit = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
-				if (productEdit == null)
+                var productEdit = await _repository.GetById(id);
+                if (productEdit == null)
 				{
 					return new BaseResponse<Product>()
 					{
@@ -118,16 +121,16 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-		public async Task<IBaseResponse<ProductViewModel>> GetProduct(long id)
+		public async Task<IBaseResponse<ProductViewModel>> GetProduct(int id)
 		{
 			try
 			{
-				var product = await _repository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+				var product = await _repository.GetById(id);
 				if (product == null)
 				{
 					return new BaseResponse<ProductViewModel>()
 					{
-						Description = "Пользователь не найден",
+						Description = "Продукт не найден",
 						Status = StatusCode.UserNotFound
 					};
 				}
@@ -152,39 +155,69 @@ namespace OnlineStore.Service.Implementations
 				return new BaseResponse<ProductViewModel>()
 				{
 					Description = $"[GetCar] : {ex.Message}",
-					Status= StatusCode.InternalErrorServer
+					Status = StatusCode.InternalErrorServer
 				};
 			}
 		}
 
-		public async Task<IBaseResponse<List<Product>>> GetProduct(string term)
+		//public async Task<IBaseResponse<List<Product>>> GetProduct(string term)
+		//{
+		//	try
+		//	{
+		//		var products = await _repository.GetAll();
+
+		//		var productViewModels = products.Select(x => new ProductViewModel()
+		//		{
+		//			Id = x.Id,
+		//			Name = x.Name,
+		//			Description = x.Description,
+		//			Price = x.Price,
+		//			TypeProduct = x.TypeProduct,
+		//			Image = x.Image
+		//		}).ToList();
+
+		//		if (!products.Any())
+		//		{
+		//			return new BaseResponse<List<Product>>()
+		//			{
+		//				Description = "Найдено 0 элементов",
+		//				Status = StatusCode.OK
+		//			};
+		//		}
+
+		//		return new BaseResponse<List<Product>>()
+		//		{
+		//			Data = products,
+		//			Status = StatusCode.OK
+		//		};
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return new BaseResponse<List<Product>>()
+		//		{
+		//			Description = $"[GetProductsAsync] : {ex.Message}",
+		//			Status = StatusCode.InternalErrorServer
+		//		};
+		//	}
+		//}
+
+
+		public async Task<IBaseResponse<IEnumerable<Product>>> GetProducts()
 		{
 			try
 			{
-				var products = await _repository.GetAll()
-					.Where(x => x.Name.Contains(term))
-					.ToListAsync();
-
-				var productViewModels = products.Select(x => new ProductViewModel()
-				{
-					Id = x.Id,
-					Name = x.Name,
-					Description = x.Description,
-					Price = x.Price,
-					TypeProduct = x.TypeProduct,
-					Image = x.Image
-				}).ToList();
+				var products = await _repository.GetAll();
 
 				if (!products.Any())
 				{
-					return new BaseResponse<List<Product>>()
+					return new BaseResponse<IEnumerable<Product>>()
 					{
 						Description = "Найдено 0 элементов",
 						Status = StatusCode.OK
 					};
 				}
 
-				return new BaseResponse<List<Product>>()
+				return new BaseResponse<IEnumerable<Product>>()
 				{
 					Data = products,
 					Status = StatusCode.OK
@@ -192,7 +225,7 @@ namespace OnlineStore.Service.Implementations
 			}
 			catch (Exception ex)
 			{
-				return new BaseResponse<List<Product>>()
+				return new BaseResponse<IEnumerable<Product>>()
 				{
 					Description = $"[GetProductsAsync] : {ex.Message}",
 					Status = StatusCode.InternalErrorServer
@@ -200,58 +233,18 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-
-		public async Task<IBaseResponse<List<Product>>> GetProducts()
+		public async Task<IEnumerable<TypeProduct>> GetTypes()
 		{
 			try
 			{
-				var products = await _repository.GetAll().ToListAsync();
-
-				if (!products.Any())
-				{
-					return new BaseResponse<List<Product>>()
-					{
-						Description = "Найдено 0 элементов",
-						Status = StatusCode.OK
-					};
-				}
-
-				return new BaseResponse<List<Product>>()
-				{
-					Data = products,
-					Status = StatusCode.OK
-				};
+				// Assuming you have a DbContext and TypeProduct DbSet to query from
+				var types = await _typeProductRep.GetAll();
+				return types;
 			}
 			catch (Exception ex)
 			{
-				return new BaseResponse<List<Product>>()
-				{
-					Description = $"[GetProductsAsync] : {ex.Message}",
-					Status = StatusCode.InternalErrorServer
-				};
-			}
-		}
-
-		public BaseResponse<Dictionary<int, string>> GetTypes()
-		{
-			try
-			{
-				var types = ((TypeProduct[])Enum.GetValues(typeof(TypeProduct)))
-					.ToDictionary(k => (int)k, t => t.GetDisplayName());
-
-				return new BaseResponse<Dictionary<int, string>>()
-				{
-					Data = types,
-					Status = StatusCode.OK
-				};
-			}
-			catch (Exception ex)
-			{
-				return new BaseResponse<Dictionary<int, string>>()
-				{
-					Description = ex.Message,
-					Status= StatusCode.InternalErrorServer
-				};
+				// Handle exception appropriately
+				throw ex;
 			}
 		}
 	}

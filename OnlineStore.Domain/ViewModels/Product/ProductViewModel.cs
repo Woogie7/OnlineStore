@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using OnlineStore.Domain.Entity;
 using OnlineStore.Domain.Enum;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,11 @@ namespace OnlineStore.Domain.ViewModels.Product
 		[Required(ErrorMessage = "Выберите тип")]
 		public TypeProduct TypeProduct { get; set; }
 
-		[Display(Name = "Фотография")]
+        [Display(Name = "Тип продукта")]
+        [Required(ErrorMessage = "Выберите тип")]
+        public int TypeProductId { get; set; } 
+
+        [Display(Name = "Фотография")]
 		[Required(ErrorMessage = "Выберите фото")]
 		public string Image { get; set; }
 	}
