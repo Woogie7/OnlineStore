@@ -34,7 +34,8 @@ namespace OnlineStore.Controllers
                     Price = p.Price,
                     TypeProductId = p.TypeProductId,
                     TypeProduct = p.TypeProduct,
-                    Image = p.Image
+                    Image = p.Image,
+                    ImageFile = null
                 }).ToList();
 
                 return View(productsViewModel);
@@ -63,7 +64,7 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
-            // Ваш код для сохранения или обновления продукта
+
             var result = await _productService.Create(productViewModel);
 
             if (result.Status == Domain.Enum.StatusCode.OK)

@@ -48,6 +48,7 @@ namespace OnlineStore.Controllers
 		{
 			return View();
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
@@ -71,22 +72,5 @@ namespace OnlineStore.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
-
-		[HttpPost]
-		public IActionResult SendConfirmationCode([FromBody] string email)
-		{
-			string confirmationCode = GenerateConfirmationCode();
-			_emailSenderService.SendEmailAsync(email, "Код подтверждения", confirmationCode);
-
-			return Ok(); // Assuming success; you can modify this based on your needs
-		}
-
-
-		private string GenerateConfirmationCode()
-		{
-			Random random = new Random();
-			int confirmationCode = random.Next(100000, 999999);
-			return confirmationCode.ToString();
-		}
 	}
 }

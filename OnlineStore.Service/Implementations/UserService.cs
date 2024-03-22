@@ -107,7 +107,7 @@ namespace OnlineStore.Service.Implementations
         //        };
         //    }
         //    catch (Exception ex)
-        //    { 
+        //    {
         //        return new BaseResponse<IEnumerable<UserViewModel>>()
         //        {
         //            Status = StatusCode.InternalErrorServer,
@@ -145,11 +145,6 @@ namespace OnlineStore.Service.Implementations
                     Description = $"Внутренняя ошибка: {ex.Message}"
                 };
             }
-        }
-
-        public Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers()
-        {
-            throw new NotImplementedException();
         }
     }
 }

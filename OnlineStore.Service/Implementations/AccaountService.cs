@@ -106,42 +106,6 @@ namespace OnlineStore.Service.Implementations
 			}
 		}
 
-		//public async Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel model)
-		//{
-		//	try
-		//	{
-		//		var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.Name == model.UserName);
-		//		if (user == null)
-		//		{
-		//			return new BaseResponse<bool>()
-		//			{
-		//				StatusCode = StatusCode.UserNotFound,
-		//				Description = "Пользователь не найден"
-		//			};
-		//		}
-
-		//		user.Password = HashPasswordHelper.HashPassowrd(model.NewPassword);
-		//		await _userRepository.Update(user);
-
-		//		return new BaseResponse<bool>()
-		//		{
-		//			Data = true,
-		//			StatusCode = StatusCode.OK,
-		//			Description = "Пароль обновлен"
-		//		};
-
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		_logger.LogError(ex, $"[ChangePassword]: {ex.Message}");
-		//		return new BaseResponse<bool>()
-		//		{
-		//			Description = ex.Message,
-		//			StatusCode = StatusCode.InternalServerError
-		//		};
-		//	}
-		//}
-
 		private ClaimsIdentity Authenticate(User user)
 		{
 			var claims = new List<Claim>

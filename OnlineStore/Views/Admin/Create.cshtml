@@ -5,7 +5,7 @@
 @model ProductViewModel
 
 <h1>Добавить продукт</h1>
-<form autocomplete="off" method="post" class="p-3 m-3" asp-controller="Admin" asp-action="Create">
+<form autocomplete="off" method="post" enctype="multipart/form-data" class="p-3 m-3" asp-controller="Admin" asp-action="Create">
     <div class="mb-3">
         <span class="text-feild">@Html.ValidationMessageFor(model => model.Name)</span>
         <span class="text-feild">@Html.ValidationMessageFor(model => model.Description)</span>
@@ -30,9 +30,10 @@
     </div>
 
     <div class="mb-3">
-        <label for="Image" class="form-label">Фотография</label>
-        <input type="file" id="Image" class="form-control" asp-for="Image" accept="image/*" />
-        <span asp-validation-for="Image" class="text-danger"></span>
+        <label for="ImageFile" class="form-label">Фотография</label>
+        <input type="file" id="ImageFile" class="form-control" asp-for="ImageFile" accept="image/product*" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-primary">Добавить</button>
 </form>

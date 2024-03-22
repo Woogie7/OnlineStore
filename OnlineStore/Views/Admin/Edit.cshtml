@@ -28,9 +28,9 @@
         <select id="TypeProductId" class="form-control" asp-for="TypeProductId" asp-items="ViewBag.TypeProductId"></select>
     </div>
     <div class="mb-3">
-        <label for="Image" class="form-label">Фотография</label>
-        <input type="file" id="Image" class="form-control" asp-for="Image" accept="image/*" />
-        <span asp-validation-for="Image" class="text-danger"></span>
+        <label for="ImageFile" class="form-label">Фотография</label>
+        <input type="file" id="ImageFile" class="form-control" asp-for="ImageFile" accept="image/*" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Изменить</button>
 </form>

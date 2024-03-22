@@ -6,6 +6,7 @@ using OnlineStore.Domain.ViewModels.Product;
 using OnlineStore.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.DAL.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace OnlineStore.Service.Implementations
 {
@@ -34,6 +35,8 @@ namespace OnlineStore.Service.Implementations
                 };
             }
 
+            var imagePath = await SaveImageAsync(product.ImageFile);
+
             try
 			{
 				var productNew = new Product()
@@ -43,8 +46,8 @@ namespace OnlineStore.Service.Implementations
 					Price = product.Price,
 					TypeProductId = product.TypeProductId,
 					TypeProduct = typeProduct,
-					Image = "vobler_smith_camion.jpeg"
-				};
+                    Image = imagePath
+                };
 				await _repository.Create(productNew);
 
 				return new BaseResponse<Product>()
@@ -167,8 +170,8 @@ namespace OnlineStore.Service.Implementations
 					Description = product.Description,
 					Price = product.Price,
 					TypeProduct = product.TypeProduct,
-					Image = product.Image
-				};
+                    Image = product.Image
+                };
 
 				return new BaseResponse<ProductViewModel>()
 				{
@@ -200,7 +203,7 @@ namespace OnlineStore.Service.Implementations
 					Price = x.Price,
 					TypeProduct = x.TypeProduct,
 					Image = x.Image
-				}).ToList();
+                }).ToList();
 
 				if (!products.Any())
 				{
@@ -271,5 +274,17 @@ namespace OnlineStore.Service.Implementations
 				throw ex;
 			}
 		}
-	}
+
+        private async Task<string> SaveImageAsync(IFormFile imageFile)
+        {
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "image","product", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+            return fileName;
+        }
+    }
 }

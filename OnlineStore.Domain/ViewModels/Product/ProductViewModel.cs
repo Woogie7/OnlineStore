@@ -37,7 +37,11 @@ namespace OnlineStore.Domain.ViewModels.Product
 
         [Display(Name = "Фотография")]
 		[Required(ErrorMessage = "Выберите фото")]
-		public string Image { get; set; }
-	}
+		public IFormFile ImageFile { get; set; }
+
+        [Display(Name = "Фотография")]
+        [Required(ErrorMessage = "Выберите фото")]
+        public string Image { get; set; }
+    }
 }
 

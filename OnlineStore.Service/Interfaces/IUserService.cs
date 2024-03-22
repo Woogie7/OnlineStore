@@ -15,7 +15,7 @@ namespace OnlineStore.Service.Interfaces
 
         BaseResponse<Dictionary<int, string>> GetRoles();
 
-        Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers();
+        //Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers();
 
         Task<IBaseResponse<bool>> DeleteUser(int id);
     }
